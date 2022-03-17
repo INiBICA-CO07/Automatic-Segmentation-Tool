@@ -1,11 +1,17 @@
 # PI0032WEB
-`Español`: En este repositorio se encuentra recopilado todo el código de la página web del proyecto `BD-PATH`, que incluye la herramientas de visualización de las imágenes médicas y la herramienta de segmentación automática.
+Proyecto de la página web de BD-PATH.
 
-`English`: This repository contains all the code for the `BD-PATH` project website, which includes the medical WSI viewing tools and the automatic segmentation tool.
-
+Warning
 ---
-**Autoría**
 
-`Español`: Todo el código del proyecto ha sido desarrollado por Blanca Priego Torres.
+`Español`: En este repositorio se encuentra recopilado todo el código de la página web del proyecto `BD-PATH`. Dentro de todo el código de esta página web se incluye el código tanto para la herramienta de visualización de las imágenes médicas como para la herramienta de segmentación automática de regiones tumorales.
 
-`English`: All the project code has been developed by Blanca Priego Torres.
+`English`: In this repository all the code of the web page of the `BD-PATH` project is compiled. Within all the code of this web page, the code for both the medical image (`Whole Slide Image`) visualization tool and the automatic segmentation tool for tumor regions is included.
+
+
+Autorship:
+---
+
+`Español`: Todo el código del proyecto ha sido desarrollado y cedido voluntariamente por Blanca Priego Torres.
+
+`English`: All project code has been developed and voluntarily provided by Blanca Priego Torres.
