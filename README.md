@@ -4,8 +4,8 @@
 `English`: This repository contains all the code for the `BD-PATH` project website, which includes the medical WSI viewing tools and the automatic segmentation tool.
 
 ---
-**Advertencia**
+**Autoría**
 
-`Español`: Todo el código del proyecto está desarrollado por Blanca Priego Torres.
+`Español`: Todo el código del proyecto ha sido desarrollado por Blanca Priego Torres.
 
-`English`: All the project code is developed by Blanca Priego Torres.
+`English`: All the project code has been developed by Blanca Priego Torres.
