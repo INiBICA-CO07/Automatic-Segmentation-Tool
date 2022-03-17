@@ -1,0 +1,11 @@
+[{"label":"ROI_Tumoral","uid":2,"color":{"red":210,"green":0,"blue":0},"alpha":0.5, "strokeColor":{"red":210,"green":0,"blue":0}},
+  {"label":"ROI_NonTumoral","uid":1,"color":{"red":40,"green":180,"blue":99},"alpha":0.5},
+  {"label":"DCIS","uid":3,"color":{"red":3,"green":78,"blue":3},"alpha":0.5},
+  {"label":"IDC","uid":4,"color":{"red":66,"green":170,"blue":244},"alpha":0.5},
+  {"label":"LCIS","uid":5,"color":{"red":191,"green":114,"blue":74},"alpha":0.5},
+  {"label":"ILC","uid":6,"color":{"red":100,"green":103,"blue":104},"alpha":0.5},
+  {"label":"OtherTumor","uid":7,"color":{"red":64,"green":80,"blue":249},"alpha":0.5},
+  {"label":"Epithelium","uid":8,"color":{"red":227,"green":158,"blue":239},"alpha":0.5},
+  {"label":"Artifacts","uid":9,"color":{"red":255,"green":255,"blue":38},"alpha":0.5},
+  {"label":"Fat","uid":10,"color":{"red":4, "green":40,"blue":111},"alpha":0.5},
+  {"label":"Vessels","uid":11,"color":{"red":222,"green":67,"blue":114},"alpha":0.5}]

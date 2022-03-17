@@ -1,0 +1,216 @@
+<html>
+<p style="z-index:10; position:fixed;" id="besideMouse"></p>
+<head>
+	<title>Annotation Service</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/as_viewer.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/messagebox.css') }}" type="text/css" />
+    <script src="{{ url_for('static', filename='lib/jquery-1.11.0.min.js') }}"></script>
+</head>
+
+<body>
+<div id="busybox" class="fog_div">
+    <div></div>
+</div>
+<div id="buttonBar" class="table">
+	<div class="spacer3">
+		<div class="row">
+			<img id="backButton" src="{{ url_for('static', filename='img/back.svg') }}" onClick="window.location.href='/back'"
+			onmouseover="backInfo(1)" onmouseout="backInfo(0)"/>
+			<img id="helpButton" src="{{ url_for('static', filename='img/information.svg') }}" onmouseover="help(1)" onmouseout="help(0)"/>
+            <div id="backContent"/> Back</div>
+			<div id="helpContent">
+                N (hold) + left mouse (tap) = Non-tumoral ROI drawing mode </br>
+				T (hold) + left mouse (tap) = Tumoral ROI drawing mode </br></br>
+				CTRL (hold)  + left mouse (hold) = freehand drawing mode </br>
+				ALT (hold) + left mouse (click) = select region</br></br>
+				DEL = delete a selected region </br>
+				ESC = deselect a selected region </br></br>
+                * Keep the window maximized to avoid misalignments between </br>
+                the image and the annotations </br>
+			</div>
+		</div>
+
+	</div>
+	<div class="spacer3">
+        <div class="row">
+            <img id="addinfoButton" src="{{ url_for('static', filename='img/addinfoinibica.svg') }}"
+                 onClick="guiButtonDown('addinfoButton', '', 'addinfo')"
+                 onmouseover="addinfoInfo(1)" onmouseout="addinfoInfo(0)"/>
+            <div id="addinfoContent">
+                Add additional information
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<div class="spacer3">
+		<div class="row">
+			<img id="importAnnotationButton" src="{{ url_for('static', filename='img/importinibica.svg') }}"
+                 onClick="selectAnnotationToImport()"
+		 onmouseover="importInfo(1)" onmouseout="importInfo(0)"/>
+
+            <img id="saveButton" src="{{ url_for('static', filename='img/saveinibica.svg') }}"
+				 onmouseover="saveInfo(1)" onmouseout="saveInfo(0)" onClick="save()"/>
+            <div id="importContent"> Import existing annotations</br> </div>
+			<div id="saveContent"> Save annotations</br> </div>
+		</div>
+	</div>
+
+    <div class="spacer2">
+		<div class="row">
+            <img id="drawButton" src="{{ url_for('static', filename='img/editinibica.svg') }}"
+                 onClick="guiButtonDown('drawButton', 'editinibica_cursor.svg', 'draw')"
+                 onmouseover="drawInfo(1)" onmouseout="drawInfo(0)"/>
+            <div id="drawContent">
+                Freehand drawing mode
+			</div>
+
+
+		</div>
+	</div>
+    <div class="spacer2">
+		<div class="row">
+            <img id="roiNTButton" src="{{ url_for('static', filename='img/rointinibica.svg') }}"
+                 onClick="guiButtonDown('roiNTButton', 'rointinibica_cursor.svg', 'roib')"
+                 onmouseover="roiNTInfo(1)" onmouseout="roiNTInfo(0)"/>
+            <img id="roiTButton" src="{{ url_for('static', filename='img/roitinibica.svg') }}"
+                 onClick="guiButtonDown('roiTButton', 'roitinibica_cursor.svg', 'roim')"
+                 onmouseover="roiTInfo(1)" onmouseout="roiTInfo(0)"/>
+            <div id="roiNTContent">
+                Non-tumoral ROI drawing mode
+			</div>
+            <div id="roiTContent" >
+                Tumoral ROI drawing mode
+			</div>
+		</div>
+	</div>
+    <div class="spacer2">
+		<div class="row">
+			<img id="eraseButton" src="{{ url_for('static', filename='img/eraseinibica.svg') }}"
+            onClick="guiButtonDown('eraseButton', '', 'erase')" onmouseover="eraseInfo(1)" onmouseout="eraseInfo(0)"/>
+            <img id="selectButton" src="{{ url_for('static', filename='img/selectinibica.svg') }}"
+            onClick="guiButtonDown('selectButton', 'selectinibica_cursor.svg', 'select')"
+                 onmouseover="selectInfo(1)" onmouseout="selectInfo(0)"/>
+		</div>
+        <div id="eraseContent" >
+                Delete the selected region
+        </div>
+        <div id="selectContent">
+                Select and move a region
+        </div>
+	</div>
+    <div class="spacer3">
+		<div class="row">
+			<img id="shuffleButton" src="{{ url_for('static', filename='img/shuffleinibica.svg') }}"
+            onClick="guiButtonDown('shuffleButton', '', 'shuffle')"
+                 onmouseover="shuffleInfo(1)" onmouseout="shuffleInfo(0)"/>
+            <img id="autoButton" src="{{ url_for('static', filename='img/autoinibica.svg') }}"
+            onClick="guiButtonDown('autoButton', '', 'auto')" onmouseover="autoInfo(1)" onmouseout="autoInfo(0)"/>
+            <div id="shuffleContent" >
+                Change the label of the selected region
+			</div>
+            <div id="autoContent" >
+                Automatic image processing
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- Toolbar -->
+<div id="menuBar" class="table">
+
+
+	<div class="row">
+		<div id="myNavigator"></div>
+	</div>
+
+	<div class="dropdown">
+        WSI Filename:</br>
+        <span id="currentWSIName"></span></br>
+	</div>
+
+    <div class="dropdown">
+        </br>Annotation Filename:</br>
+        <span id="currentAnnotationName"></span></br>
+	</div>
+
+	<div class="dropdown" onClick="toggleDictPicker()">
+		</br>Dictionary:</br>
+		<span id="currentDictName"></span>
+ 			<div class="dropdown-content" id="dicts_content">
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="cell">
+			<br />
+			Labels (<span id="count_all"></span>)
+			<img class="eye" id="toggle-poi"	style="padding-left:5px;padding-right:30px;"	title="Toggle visibility of all Regions"	onclick="toggleAllRegions()"	src="{{ url_for('static', filename='img/eyeOpened.svg') }}"/>
+			<div id="regionList"></div>
+		</div>
+	</div>
+</div>
+
+<div id="regionBar" class="table">
+    <div class="row">
+            <div class="cell">
+                <div id="subRegionList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="scoreBar" class="table">
+    <div class="row">
+            <div class="cell">
+                <div id="scoreList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="colorSelector">
+	fill color
+	<input type="color" id="fillColorPicker" value="#ff0000" onChange="onFillColorPicker(this.value);" >
+	<br>
+	<br>
+	&alpha;<input type="range" min="0" max="100" id="alphaSlider" onInput="onAlphaSlider(this.value);" ><input id="alphaFill" onInput="onAlphaInput(this.value);" >
+	<br>
+	<br>
+	<input type="button" id="okStrokeColor" value="ok" onClick="setRegionColor();">
+</div>
+
+<!-- Region Picker -->
+<div id="regionPicker">
+</div>
+
+<!-- OpenSeadragon viewer -->
+<div id="openseadragon1" style="width:vh;height:hh"></div>
+
+<!-- Load javascript -->
+
+<!-- <script src="{{ url_for('static', filename='lib/paper-full-0.9.25.min.js') }}"></script>-->
+<script src="{{ url_for('static', filename='lib/paperjs-v0.12.0/dist/paper-full.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/openseadragon.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/OpenSeadragonScalebar/openseadragon-scalebar.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/openseadragon-viewerinputhook.min.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/loadingoverlay.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/messagebox.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/as_viewer_roi.js') }}"></script>
+
+<script>
+    setTimeout(init("{{ file_name }}", "{{ annotation_path }}", "{{ slide_url }}", "{{ slide_mpp }}", "{{dictionary}}"), 2500);
+</script>
+</body>
+
+</html>
+
+

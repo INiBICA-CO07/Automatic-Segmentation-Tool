@@ -1,0 +1,64 @@
+.center40 {
+    margin-top: 2em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+.center75 {
+    margin-top: 2em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+.center60 {
+    margin-top: 2em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.center100 {
+    margin-top: 2em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.icons {
+    height: 2em;
+    width: 2em
+}
+
+.logo {
+    height: 1.6em;
+    background-color: #772953;
+    margin-left: 0.2em;
+}
+
+.figuretitle {
+    text-align: center;
+    font-size: 80%
+}
+
+.left {
+    float: left;
+    width: 50%;
+    text-align: center;
+    display: inline;
+}
+
+.right {
+    float: left;
+    width: 50%;
+    text-align: center;
+    display: inline;
+}
+
+p {
+  text-align: justify;
+}

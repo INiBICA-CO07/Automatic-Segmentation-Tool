@@ -1,0 +1,347 @@
+<!-- extend base layout -->
+{% extends "appbuilder/base.html" %}
+{% block head_js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='lib/jquery-1.11.0.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/protocol.css') }}" type="text/css"/>
+
+{% endblock %}
+{% block content %}
+
+    <DIV id="project_title" ALIGN="center" style="width:75%; margin:0">
+        <h2>
+            PROTOCOLO DE ANOTACIONES - VISOR WSI
+        </h2>
+    </DIV>
+    <div id="explanation" style="margin-top: 2em; width: 75%; ">
+        <p><strong>Recomendación: </strong> Anotar las preparaciones digitales web empleando el navegador Google Chrome
+            con
+            la ventana maximizada.
+        </p>
+        <p><strong>Se ruega </strong> en caso de encontrar un error en el visor de preparaciones digitales y
+            herramientas de anotación, enviar un email a <i>blanca.priego@inibica.es</i> describiendo el mismo (desencadenante
+            del error y consecuencias).
+        </p>
+
+        <h3><strong> 1. Selección de caso/paciente.</strong></h3>
+        <br style="clear:both;"/>
+
+        <p>A la hora de elegir la preparación digital de una paciente, es conveniente utilizar la
+            información que proporciona el diagrama de la página principal de la plataforma. Este diagrama pretende
+            dar una visión del estado actual de las anotaciones realizadas sobre las preparaciones digitales. Se
+            puede acceder a
+            este diagrama pulsando sobre el logo <a href="http://telemed.uca.es:443/"><img
+                    src="{{ url_for('static', filename='img/inibica_logo.png') }}"
+                    class="logo"/></a>.
+        </p>
+        <p>Cada sección del anillo interior del diagrama muestra información relativa a una
+            paciente. Al situar el ratón sobre estas secciones, en la esquina inferior izquierda de la página web
+            aparecerá la referencia de la paciente y el hospital al que pertenece. Los colores del anillo interior
+            denotan el hospital de pertenencia de la paciente.
+        </p>
+        <p>
+            Algunas de las secciones del anillo interior están <strong>marcadas con un borde negro</strong>. Se
+            deberían anotar
+            primero las preparaciones digitales de estas pacientes para facilitar el entrenamiento de los algoritmos
+            de inteligencia artificial.
+        </p>
+        <p>
+            El anillo exterior muestra información sobre las preparaciones digitales asociadas a cada paciente. Las
+            secciones de este anillo se irán coloreando conforme se realicen anotaciones sobre las preparaciones
+            digitales.
+        </p>
+        <p>Para simplificar, para seleccionar una paciente:
+        </p>
+        <ul>
+            <li>Buscaremos una sección del anillo interior del diagrama marcada con un borde negro y cuya paciente
+                asociada pertenezca al hospital para el que trabajamos.
+            </li>
+            <li>Si no hay ninguna sección marcada con borde negro para pacientes de nuestro hospital,
+                seleccionaremos cualquier
+                paciente cuya imagen de HE no hayamos anotado aún.
+            </li>
+
+        </ul>
+        <br style="clear:both;"/>
+        <p> Una vez elegida a la paciente, buscaremos su referencia en la tabla de lista de
+            pacientes, a la cual se accede pulsando en la pestaña "Patients > Patient List" de la cabecera. A la
+            izquierda de cada referencia en esta tabla aparece un botón con forma de lupa. Al pulsar sobre el mismo
+            se accederá a datos de la historia clínica y a la lista de preparaciones digitales escaneadas asociadas
+            con la paciente.
+        </p>
+
+        <p> Para abrir una preparación sólo tendremos que hacer click sobre el nombre de la misma.
+            Anotaremos sólamente la preparación de <strong>HE</strong> de tejido extraído de una pieza quirúrgica
+            (<strong>surgical
+                specimen</strong>).
+        </p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/wheel.gif') }}" class="center100"/>
+            <figcaption class="figuretitle"> Ejemplo de selección de preparación digital</figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+        <h3><strong>2. Añadir 14 regiones de interés (ROI) sobre la imagen.</strong></h3>
+        <br style="clear:both;"/>
+        <p> Una vez abierta la preparación digital en el visor, se deberán <strong>crear 7 regiones
+            interés sobre áreas tumorales</strong>. Para ello, hay que mantener pulsada la tecla ‘T’ (atajo de
+            teclado) o presionar sobre el botón
+            <img src="{{ url_for('static', filename='img/roitinibica.svg') }}" class="icons"/> del panel de
+            herramientas.</p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/ROITp.gif') }}" class="center40"/>
+            <figcaption class="figuretitle">Ejemplo de creación de ROI tumoral</figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+        <p>A continuación, se deberán <strong>añadir las 7 regiones de interés restantes sobre áreas
+            no
+            tumorales</strong>. Es
+            deseable elegir regiones de interés no tumorales  variadas entre sí y relevantes para el diagnóstico
+            (estroma, quistes, lesiones de células columnares, lóbulos,...). En este caso, es necesario mantener
+            pulsada
+            la tecla ‘N’ al hacer click sobre el
+            visor o presionar el botón <img src="{{ url_for('static', filename='img/rointinibica.svg') }}"
+                                            class="icons"/> del panel de herramientas.</p>
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/ROINTp.gif') }}" class="center40"/>
+            <figcaption class="figuretitle">Ejemplo de creación de ROI no tumoral</figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+        <p>Para modificar la posición de cualquier anotación realizada sobre el visor, se debe
+            pulsar la tecla ‘Alt’
+            o hacer click sobre el botón <img src="{{ url_for('static', filename='img/selectinibica.svg') }}"
+                                              class="icons"/>,
+            seguidamente seleccionar la región y entonces arrastrar el ratón sobre el visor ubicando la anotación en
+            la posición deseada.
+            Para borrar cualquier anotación, primero se debe seleccionar la región a eliminar manteniendo pulsada la
+            tecla ‘Alt’ o haciendo click sobre el botón <img
+                    src="{{ url_for('static', filename='img/selectinibica.svg') }}" class="icons"/>. Una vez
+            seleccionada la anotación, ésta desaparecerá del visor pulsando la tecla ‘Supr’ o haciendo click sobre
+            el botón
+            <img src="{{ url_for('static', filename='img/eraseinibica.svg') }}" class="icons"/>.
+        </p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/moveerase.gif') }}" class="center40"/>
+            <figcaption class="figuretitle">Ejemplo de traslación de anotación y borrado</figcaption>
+        </figure>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/rois.png') }}" class="center75"/>
+            <figcaption class="figuretitle">Ejemplo de creación de ROIs tumorales y no tumorales</figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+        <h3><strong>3. Crear nuevas regiones que añadan detalle a la anotación de regiones tumorales.</strong>
+        </h3>
+        <br style="clear:both;"/>
+        <p> Para ello, dentro de cada ROI tumoral habría que delimitar: </p>
+        <ul>
+            <li>Los carcinomas: DCIS, IDC, LCIS, ILC, OtherTumor.</li>
+            <li>La grasa.</li>
+            <li>Artefactos.</li>
+            <li>Los vasos.</li>
+        </ul>
+
+        <p> Para delimitar mediante nuevas anotaciones los elementos mencionados, primero hay que
+            seleccionar en el
+            panel de etiquetas el tipo de región a anotar: DCIS, IDC, LCIS, ILC, OtherTumor, Fat o Artefacts. A
+            continuación, manteniendo pulsada la tecla ‘Ctrl’ o haciendo click sobre el botón <img
+                    src="{{ url_for('static', filename='img/editinibica.svg') }}" class="icons"/>, se dibuja a mano
+            alzada
+            la región a anotar sobre la imagen haciendo click con el botón izquierdo del ratón y arrastrando el
+            cursor
+            sobre el visor. Es conveniente anotar estas regiones de detalle a una máxima magnificación.
+        </p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/freedrawing.gif') }}" class="center75"/>
+            <figcaption class="figuretitle">Ejemplo de creación de anotaciones dentro de una región de interés
+                tumoral
+            </figcaption>
+        </figure>
+        <br style="clear:both;"/>
+        <p>Para editar el contorno de cualquier región, seleccionar en el panel de etiquetas el tipo
+            de región que se quiere modificar.
+            Si se desea agrandar una región, comenzar a dibujar una nueva anotación desde un pixel interior,
+            abarcando todos los pixels que se quieran incluir en la misma.
+            Para eliminar pixels de una región, comenzar a dibujar una nueva anotación desde un pixel exterior a
+            la anotación, abarcando todos los pixels que se desean excluir de la misma.
+        </p>
+
+        <div class="left"><img src="{{ url_for('static', filename='img/protocol/suma.png') }}"
+                               class="center75"/>
+            <p class="figuretitle">Edición de anotación (añadiendo pixels a la región)</p>
+        </div>
+        <div class="right"><img src="{{ url_for('static', filename='img/protocol/resta.png') }}" class="center75"/>
+            <p class="figuretitle">Edición de anotación (extrayendo pixels de la región)</p>
+        </div>
+        <br style="clear:both;"/>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/freedrawing_resta.gif') }}" class="center75"/>
+            <figcaption class="figuretitle">Ejemplo de Edición de anotación (extrayendo pixels de la región)
+                tumoral
+            </figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+        <p> En ocasiones puede ocurrir que nos percatemos de que al terminar de dibujar una región
+            le hayamos asignado erróneamente su etiqueta (DCSI, IDC, etc.). Es posible modificar la etiqueta
+            seleccionando
+            la región y a continuación haciendo click sobre
+            <img src="{{ url_for('static', filename='img/shuffleinibica.svg') }}" class="icons"/>.
+        </p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/switch.gif') }}" class="center60"/>
+            <figcaption class="figuretitle">Ejemplo de cambio de etiqueta de una región
+            </figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+
+        <p>
+            Se considerará estroma, el área dentro de la
+            región de interés (ROI) que no esté incluído dentro de otra región anotada como DCIS, IDC, LCIS,
+            ILC, OtherTumor, Artifacts, Fat or Vessels.
+        </p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/detailroit.png') }}" class="center75"/>
+            <figcaption class="figuretitle">Ejemplo de creación de anotaciones dentro de una región de interés
+                tumoral
+            </figcaption>
+        </figure>
+        <br style="clear:both;"/>
+        <h3><strong>4. Crear nuevas regiones que añadan detalle a la anotación de regiones no tumorales.</strong></h3>
+        <br style="clear:both;"/>
+        <p> Para ello, dentro de cada ROI no tumoral habría que: </p>
+        <ul>
+            <li>Delimitar el epitelio.</li>
+            <li>Delimitar la grasa.</li>
+            <li>Delimitar la presencia de artefactos.</li>
+            <li>Los vasos.</li>
+
+        </ul>
+
+        <p> De nuevo, para delimitar mediante nuevas anotaciones los elementos mencionados, primero
+            hay que seleccionar en el panel de etiquetas el tipo de región: Epithelium, Fat, Artefacts o Vessels. A
+            continuación, manteniendo pulsada la tecla ‘Ctrl’, dibujar a mano alzada la región a anotar sobre la
+            imagen haciendo click con el botón izquierdo del ratón y arrastrando el cursor sobre la imagen.
+        </p>
+        <p>
+            Se considerará estroma el área dentro de la región de interés (ROI) que no esté incluído dentro de otra
+            región anotada como Epithelium, Artifacts, Fat or Vessels.
+        </p>
+
+        <h3><strong>5. Añadir información sobre el porcentaje de celularidad tumoral</strong></h3>
+        <br style="clear:both;"/>
+        <p>
+            Si es necesario indicar el porcentaje de celularidad tumoral de la preparación, pulsaremos el botón
+            <img src="{{ url_for('static', filename='img/addinfoinibica.svg') }}" class="icons"/>. El porcentaje de
+            celularidad tumoral se indicará con un número entre el 0 y el 100 (sin signo de %).
+        </p>
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/celularidad.gif') }}"
+                 class="center60"/>
+            <figcaption class="figuretitle">Ejemplo de adición de información sobre celularidad tumoral
+            </figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+
+        <h3><strong>6. Almacenar anotaciones en la base de datos.</strong></h3>
+        <br style="clear:both;"/>
+        <p> Finalmente, almacenar el archivo de anotación haciendo click sobre el botón <img
+                src="{{ url_for('static', filename='img/saveinibica.svg') }}" class="icons"/>. Asignar un nombre al
+            archivo de anotación (o aceptar el nombre por defecto). </p>
+        <p>
+            En el campo "Select the type of annotation:",
+            seleccionar <i><strong>"Detailed ROI segmentation for algorithm training"</strong></i>.
+        </p>
+        <p><strong>Si se ha completado el protocolo de anotaciones, lo confirmaremos marcando la casilla de verificación
+            <i>"The annotation of this image is complete"</i>.</strong>
+        </p>
+        <p>Si no se ha completado el protocolo de anotaciones y se desea continuar más tarde o en otra sesión,
+            guardaremos las anotaciones
+            de manera similar pero sin marcar la casilla de verificación
+            <i>"The annotation of this image is complete" </i>. Podremos acceder a las anotaciones posteriormente
+            siguiendo las instrucciones del siguiente apartado.
+        </p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/save.gif') }}"
+                 class="center60"/>
+            <figcaption class="figuretitle">Ejemplo de cómo almacenar las anotaciones en un archivo de anotación
+            </figcaption>
+        </figure>
+        <br style="clear:both;"/>
+
+
+        <h3><strong>&#8594 Acceso a anotaciones realizadas previamente.</strong>
+        </h3>
+        <br style="clear:both;"/>
+        Hay dos maneras de acceder a los archivos de anotaciones realizados en sesiones previas.
+        <br style="clear:both;"/>
+        <ul>
+            <li><i>Opción 1: </i> Pulsando en la pestaña "Annotation Files > Annotation File List" de la cabecera.
+                <figure>
+                    <img src="{{ url_for('static', filename='img/protocol/importar_lista.gif') }}"
+                         class="center100"/>
+                    <figcaption class="figuretitle">Ejemplo de acceso (desde lista) a anotaciones almacenadas
+                        previamente
+                    </figcaption>
+                </figure>
+
+            </li>
+            <br style="clear:both;"/>
+            <li><i>Opción 2: </i> Desde el visor de preparaciones, pulsando sobre el botón <img
+                    src="{{ url_for('static', filename='img/importinibica.svg') }}" class="icons"/>.
+                <figure>
+                    <img src="{{ url_for('static', filename='img/protocol/importar_visor.gif') }}"
+                         class="center100"/>
+                    <figcaption class="figuretitle">Ejemplo de acceso (desde el visor) a anotaciones almacenadas
+                        previamente
+                    </figcaption>
+                </figure>
+
+            </li>
+        </ul>
+        <br style="clear:both;"/>
+        <h3><strong>&#8594 Uso de Inteligencia Artificial para asistir a la anotación de regiones tumorales.</strong>
+        </h3>
+        <br style="clear:both;"/>
+        <p> El visor web tiene ya implementada una herramienta de segmentación automática de
+            regiones tumorales. Para poder utilizarla, primero hay que seleccionar una región de interés
+            tumoral. A
+            continuación, pulsaremos sobre el botón <img
+                    src="{{ url_for('static', filename='img/autoinibica.svg') }}" class="icons"/>. Aparecerá
+            entonces una ventana de diálogo en la que habrá que indicar qué tipo de etiqueta se le quiere
+            asignar a las regiones tumorales que se detectarán automáticamente dentro de la región de interés
+            tumoral.
+        </p>
+
+        <figure>
+            <img src="{{ url_for('static', filename='img/protocol/autoseg.gif') }}"
+                 class="center60"/>
+            <figcaption class="figuretitle">Ejemplo de segmentación automática
+            </figcaption>
+        </figure>
+
+        <br style="clear:both;"/>
+        <p>
+            Una vez obtenidos los resultados, usando la herramienta <img
+                src="{{ url_for('static', filename='img/editinibica.svg') }}" class="icons"/> podremos modificar el
+            contorno
+            de las regiones tumorales para refinar el resultado.
+        </p>
+
+
+    </div>
+{% endblock %}
+

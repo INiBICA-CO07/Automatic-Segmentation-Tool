@@ -1,0 +1,44 @@
+<!-- extend base layout -->
+{% extends "appbuilder/base.html" %}
+{% block head_js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='lib/d3/d3.v3.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/d3/tinycolor.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/jquery-1.11.0.min.js') }}"></script>
+
+{% endblock %}
+{% block content %}
+
+    <DIV id="project_title" ALIGN="justify" style="width:70%; margin:0">
+        <p>
+            <h3 style="text-align: center;">Proyecto: Predicción de riesgo de metástasis a distancia del carcinoma de mama mediante la integración de datos morfológicos inmunohistoquímicos y genéticos, a través de tecnología big data</h3>
+			<h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>Expediente PI-0032-2017 </strong></span></h3>
+			<h4 style="text-align: center;"><span style="font-size: 11pt;"><strong>Proyecto cofinanciado por la Unión Europea con cargo al Programa Operativo FEDER de Andalucía 2014-2020</strong></span></h4>
+			<h3 style="text-align: center;"><span style="font-size: 10pt;"><strong><em>OBJETIVO TEMÁTICO</em>: </strong>Investigación e Innovación Biomédica y en Ciencias de la Salud en el marco de la Iniciativa Territorial Integrada 2014-2020 para la provincia de Cádiz</span></h3>
+			<p style="text-align:center;"><img src="/static/img/proyecto/EU_JA-1-300x282.png" ></p>
+
+        </p>
+    </DIV>
+    <div id="main"  style="margin-top: 2em">
+
+      <div id="chart">
+      </div>
+    </div>
+    <div id="sidebar">
+            <div id="sequence"></div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block tail_js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='lib/overview.js') }}"></script>
+    <script type="text/javascript">
+      // Hack to make this example display correctly in an iframe on bl.ocks.org
+      d3.select(self.frameElement).style("height", "700px");
+      init_overview();
+  </script>
+
+{% endblock %}

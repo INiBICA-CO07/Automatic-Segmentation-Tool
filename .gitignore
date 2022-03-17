@@ -1,0 +1,4 @@
+app/static/deeplab/backbone/deeplabv3_bigdatapath_train/frozen_inference_graph.pb
+app/static/deeplab/backbone/deeplabv3_bigdatapath_train/model.ckpt.data-00000-of-00001
+app/static/deeplab/datasets/bigdatapath/logdir_train/deeplab_inference_graph.pb
+app/static/deeplab/datasets/bigdatapath/logdir_train/deeplab_inference_graph_logits.pb

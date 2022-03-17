@@ -1,0 +1,35 @@
+{% extends "appbuilder/base.html" %}
+
+{% block content %}
+<style type="text/css">
+li {
+    list-style-type: none;
+    margin: 0.4em 0;
+}
+li.none {
+    font-style: italic;
+}
+</style>
+<ul>
+    <H1>Slides Disponibles </H1>
+    {% for entry in root_dir.children recursive %}
+        <li>
+            {% if entry.url_path %}
+                <a href="{{ url_for('Annotation.slide', file_path=entry.url_path) }}">
+                    {{ entry.name }}
+                </a>
+            {% else %}
+                {{ entry.name }}
+            {% endif %}
+
+            {% if entry.children %}
+                <ul>
+                    {{ loop(entry.children) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% else %}
+        <li class="none">None</li>
+    {% endfor %}
+</ul>
+{% endblock %}
