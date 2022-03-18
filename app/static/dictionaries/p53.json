@@ -1,6 +1,0 @@
-[{"label":"ROI_Tumoral","uid":2,"color":{"red":210,"green":0,"blue":0},"alpha":0.5, "strokeColor":{"red":210,"green":0,"blue":0}},
-  {"label":"ROI_NonTumoral","uid":1,"color":{"red":40,"green":180,"blue":99},"alpha":0.5},
-  {"label":"Positive Nuclei","uid":3,"color":{"red":210,"green":0,"blue":0},"alpha":0.5},
-  {"label":"Negative Nuclei","uid":4,"color":{"red":40,"green":180,"blue":99},"alpha":0.5},
-  {"label":"p53 Colormap","uid":5,"color":{"red":245,"green":206,"blue":66},"alpha":0.5, "strokeWidth":0,
-    "strokeAlpha": 0}]

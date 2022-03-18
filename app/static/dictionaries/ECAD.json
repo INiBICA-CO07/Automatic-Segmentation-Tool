@@ -1,7 +1,0 @@
-[{"label":"ROI_Tumoral","uid":2,"color":{"red":210,"green":0,"blue":0},"alpha":0.5, "strokeColor":{"red":210,"green":0,"blue":0}},
-  {"label":"ROI_NonTumoral","uid":1,"color":{"red":40,"green":180,"blue":99},"alpha":0.5},
-  {"label":"No staining","uid":3,"color":{"red":255,"green":250,"blue":66},"alpha":0.6},
-  {"label":"Barely percetible and incomplete","uid":4,"color":{"red":66,"green":183,"blue":185},"alpha":0.6},
-  {"label":"Weak to moderate and complete","uid":6,"color":{"red":214,"green":145,"blue":193},"alpha":0.6},
-  {"label":"Intense and complete","uid":7,"color":{"red":210,"green":0,"blue":0},"alpha":0.65}]
-
